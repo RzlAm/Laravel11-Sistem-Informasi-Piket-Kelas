@@ -17,7 +17,6 @@ body, html {
 /* Content area, ini akan mengambil ruang yang tersisa */
 .content {
 	flex: 1;
-	padding: 20px;
 }
 
 .toast {

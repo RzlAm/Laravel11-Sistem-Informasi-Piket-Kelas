@@ -17,8 +17,7 @@
     <section id="statistic" class="bg-success py-5 d-flex align-items-center" style="height: 500px">
       <div class="container">
         <div class="row text-center justify-content-center">
-          <h2 class="fw-bold mb-0 text-white">Yang Paling Rajin Bulan Ini.</h2>
-          <p class="text-white mb-5">Untuk Bulan Ini 2 Desember 2024 - 2 Januari 2024</p>
+          <h2 class="fw-bold mb-5 text-white">Yang Paling Rajin Bulan Ini.</h2>
           <div class="col-md-6">
             <canvas id="rajinChart"></canvas>
           </div>
@@ -28,81 +27,33 @@
     <section id="statistic" class="bg-white py-5">
       <div class="container">
         <div class="row text-center justify-content-center">
-          <h3 class="fw-bold mb-0">Poin Pelanggaran Tidak Piket.</h3>
-          <p class="text-secondary mb-5">Untuk Bulan Ini 2 Desember 2024 - 2 Januari 2024</p>
+          <h3 class="fw-bold mb-5">Yang Paling Malas Bulan Ini.</h3>
           <div class="col-md-6">
             <canvas id="malasChart"></canvas>
           </div>
         </div>
       </div>
     </section>
-    <section id="statistic" class="py-5">
-      <div class="container">
-        <div class="row text-center justify-content-center">
-          <h3 class="fw-bold mb-0">Si Paling Jarang Piket.</h3>
-          <p class="text-secondary mb-5">Untuk Bulan Ini 2 Desember 2024 - 2 Januari 2024</p>
-          <table class="table w-auto fs-5">
-            <tbody>
-              <tr>
-                <td class="text-end">Nama</td>
-                <td> : </td>
-                <td class="text-start">Rizal Amin M</td>
-              </tr>
-              <tr>
-                <td class="text-end">Jumlah Piket</td>
-                <td> : </td>
-                <td class="text-start">20 Kali</td>
-              </tr>
-              <tr>
-                <td class="text-end">Jumlah Tidak Piket</td>
-                <td> : </td>
-                <td class="text-start">100 Kali</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
   </div>
   <script>
-    const rajin = document.getElementById('rajinChart').getContext('2d');
-    const malas = document.getElementById('malasChart').getContext('2d');
-    const malasChart = new Chart(malas, {
+    const rajinData = @json($rajin);
+    const malasData = @json($malas);;
+
+    const rajinLabels = rajinData.map(item => item.name);
+    const rajinCounts = rajinData.map(item => item.total);
+
+    const malasLabels = malasData.map(item => item.name);
+    const malasCounts = malasData.map(item => item.total);
+
+    const rajinChart = document.getElementById('rajinChart').getContext('2d');
+    new Chart(rajinChart, {
       type: 'bar',
       data: {
-        labels: ['Anis', 'Risa', 'Amir'],
-        datasets: [{
-          label: 'Pemalas',
-          data: [30, 40, 90],
-          backgroundColor: [
-            '#11deb0',
-            '#d8d511',
-            '#de113f',
-          ],
-          textColor: ["#fff"],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        },
-      }
-    });
-    const rajinChart = new Chart(rajin, {
-      type: 'bar',
-      data: {
-        labels: ['Anis', 'Risa', 'Amir'],
+        labels: rajinLabels,
         datasets: [{
           label: 'Pengrajin',
-          data: [30, 40, 90],
-          backgroundColor: [
-            '#fff',
-          ],
-          textColor: ["#fff"],
+          data: rajinCounts,
+          backgroundColor: '#fff',
           borderWidth: 1
         }]
       },
@@ -112,24 +63,27 @@
           y: {
             beginAtZero: true
           }
-        },
-        plugins: {
-          legend: {
-            labels: {
-              color: 'white'
-            }
-          }
-        },
+        }
+      }
+    });
+
+    const malasChart = document.getElementById('malasChart').getContext('2d');
+    new Chart(malasChart, {
+      type: 'bar',
+      data: {
+        labels: malasLabels,
+        datasets: [{
+          label: 'Pemalas',
+          data: malasCounts,
+          backgroundColor: '#de113f',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
         scales: {
-          x: {
-            ticks: {
-              color: 'white'
-            }
-          },
           y: {
-            ticks: {
-              color: 'white'
-            }
+            beginAtZero: true
           }
         }
       }

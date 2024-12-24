@@ -11,22 +11,24 @@
               <div class="card-body">
                 <table class="table">
                   <thead>
-                    <th>Senin</th>
-                    <th>Selasa</th>
-                    <th>Rabu</th>
-                    <th>Kamis</th>
-                    <th>Jum'at</th>
-                    <th>Sabtu</th>
+                    @foreach (['Senin', 'Selasa', 'Rabu', 'Kamis', "Jum'at", 'Sabtu'] as $day)
+                      <th class="text-center">{{ $day }}</th>
+                    @endforeach
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>1. RIzal</td>
-                      <td>1. RIzal</td>
-                      <td>1. RIzal</td>
-                      <td>1. RIzal</td>
-                      <td>1. RIzal</td>
-                      <td>1. RIzal</td>
-                    </tr>
+                    @for ($i = 0; $i < max(array_map(fn($day) => count($jadwal[$day]), ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'])); $i++)
+                      <tr class="text-center">
+                        @foreach (['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'] as $day)
+                          <td>
+                            @if (isset($jadwal[$day][$i]))
+                              {{ $jadwal[$day][$i]->siswa->name }} <br>
+                            @else
+                              -
+                            @endif
+                          </td>
+                        @endforeach
+                      </tr>
+                    @endfor
                   </tbody>
                 </table>
               </div>

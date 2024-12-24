@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Siswa;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,17 +14,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        Siswa::factory(36)->create(); 
 
-        User::factory()->create([
-            'name' => 'sekre',
-            'email' => 'sekre@example.com',
-            'role' => "sekretaris"
-        ]);
         User::factory()->create([
             'name' => 'admin',
             'email' => 'admin@example.com',
-            'role' => 'admin'
         ]);
     }
 }

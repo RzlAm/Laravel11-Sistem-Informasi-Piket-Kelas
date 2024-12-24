@@ -7,15 +7,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link rel="shortcut icon" href="{{ config('app.url') }}/favicon.ico" type="image/x-icon" />
-
   <title>Admin {{ config('app.name') }} - {{ @$title }}</title>
   <link rel="stylesheet" href="{{ config('app.url') }}/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="{{ config('app.url') }}/css/style.css">
   <link href="{{ config('app.url') }}/dist/css/app.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
 </head>
 
 <body>
