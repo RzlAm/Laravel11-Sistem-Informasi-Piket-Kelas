@@ -24,6 +24,10 @@ class User extends Authenticatable
         "role"
     ];
 
+    public function scopeSearch($query, $search) {
+        return $query->where("name", "LIKE", "%$search%");
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

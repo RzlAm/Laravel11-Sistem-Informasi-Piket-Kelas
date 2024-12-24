@@ -10,22 +10,19 @@ use Illuminate\Support\Facades\DB;
 
 
 Route::get('/', function () {
-    // Mendapatkan tanggal pertama dan terakhir bulan ini
-    $tanggalMulai = Carbon::now()->startOfMonth(); // Tanggal 1 bulan ini
-    $tanggalAkhir = Carbon::now()->endOfMonth();  // Tanggal terakhir bulan ini
+    $tanggalMulai = Carbon::now()->startOfMonth(); 
+    $tanggalAkhir = Carbon::now()->endOfMonth();  
 
-    // Ambil data berdasarkan rentang tanggal
-    $rajin = Piket::with('siswa') // Eager load siswa
+    $rajin = Piket::with('siswa') 
         ->where('status', 'Piket')
         ->whereBetween('tanggal', [$tanggalMulai, $tanggalAkhir])
         ->get();
 
-    $malas = Piket::with('siswa') // Eager load siswa
+    $malas = Piket::with('siswa') 
         ->where('status', 'Tidak Piket')
         ->whereBetween('tanggal', [$tanggalMulai, $tanggalAkhir])
         ->get();
 
-    // Menyiapkan data untuk dikirim ke frontend
     $rajinData = $rajin->groupBy('siswa_id')->map(function ($items) {
         return [
             'name' => $items->first()->siswa->name,
@@ -58,15 +55,13 @@ Route::get('/jadwal', function () {
         return view("jadwal", [
             "title" => "Jadwal Piket",
             "active" => "jadwal",
-            "jadwal" => $jadwal, // Gabung semua jadwal dalam satu array
+            "jadwal" => $jadwal, 
         ]);
 });
 Route::get('/piket', function () {
-    // Mendapatkan tanggal pertama dan terakhir bulan ini
-    $tanggalMulai = Carbon::now()->startOfMonth(); // Tanggal 1 bulan ini
-    $tanggalAkhir = Carbon::now()->endOfMonth();  // Tanggal terakhir bulan ini
+    $tanggalMulai = Carbon::now()->startOfMonth();
+    $tanggalAkhir = Carbon::now()->endOfMonth(); 
 
-    // Ambil data berdasarkan rentang tanggal
     $data = Piket::search(request('search'))->whereBetween('tanggal', [$tanggalMulai, $tanggalAkhir])->paginate(10);
     return view('piket', [
         "title" => "Piket",
@@ -77,6 +72,7 @@ Route::get('/piket', function () {
 
 Route::get('/login', [AuthController::class, "login"])->middleware('guest')->name("login");
 Route::post('/login', [AuthController::class, "authenticate"])->middleware('guest');
+Route::post('/logout', [AuthController::class, "logout"])->middleware('auth');
 
 Route::get("/dashboard", [DashboardController::class, "index"])->middleware("auth");
 
@@ -100,3 +96,10 @@ Route::post("/dashboard/jadwal/create", [DashboardController::class, "storeJadwa
 Route::delete("/dashboard/jadwal/{id}", [DashboardController::class, "deleteJadwal"])->middleware("auth");
 Route::get("/dashboard/jadwal/{id}/edit", [DashboardController::class, "editJadwal"])->middleware("auth");
 Route::put("/dashboard/jadwal/{id}/edit", [DashboardController::class, "updateJadwal"])->middleware("auth");
+
+Route::get("/dashboard/admin", [DashboardController::class, "admin"])->middleware("auth");
+Route::get("/dashboard/admin/create", [DashboardController::class, "createAdmin"])->middleware("auth");
+Route::post("/dashboard/admin/create", [DashboardController::class, "storeAdmin"])->middleware("auth");
+Route::delete("/dashboard/admin/{id}", [DashboardController::class, "deleteAdmin"])->middleware("auth");
+Route::get("/dashboard/admin/{id}/edit", [DashboardController::class, "editAdmin"])->middleware("auth");
+Route::put("/dashboard/admin/{id}/edit", [DashboardController::class, "updateAdmin"])->middleware("auth");

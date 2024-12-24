@@ -25,6 +25,17 @@
       <i class="align-middle" data-feather="calendar"></i> <span class="align-middle">Jadwal Piket</span>
     </a>
   </li>
+  <li class="sidebar-header">
+    Akun
+  </li>
+  <li class="sidebar-item @if (@$active == 'Admin') active @endif">
+    <a class="sidebar-link" href="/dashboard/admin">
+      <i class="align-middle" data-feather="user"></i> <span class="align-middle">Admin</span>
+    </a>
+  </li>
+  <li class="sidebar-header">
+    Pengaturan
+  </li>
   <li class="sidebar-item @if (@$active == 'Pengaturan') active @endif">
     <a class="sidebar-link" href="/dashboard/pengaturan">
       <i class="align-middle" data-feather="settings"></i> <span class="align-middle">Pengaturan</span>

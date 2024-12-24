@@ -5,14 +5,45 @@ namespace App\Http\Controllers;
 use App\Models\Jadwal;
 use App\Models\Piket;
 use App\Models\Siswa;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
     public function index() {
+    $tanggalMulai = Carbon::now()->startOfMonth(); 
+    $tanggalAkhir = Carbon::now()->endOfMonth();  
+
+    $rajin = Piket::with('siswa') 
+        ->where('status', 'Piket')
+        ->whereBetween('tanggal', [$tanggalMulai, $tanggalAkhir])
+        ->get();
+
+    $malas = Piket::with('siswa') 
+        ->where('status', 'Tidak Piket')
+        ->whereBetween('tanggal', [$tanggalMulai, $tanggalAkhir])
+        ->get();
+
+    $rajinData = $rajin->groupBy('siswa_id')->map(function ($items) {
+        return [
+            'name' => $items->first()->siswa->name,
+            'total' => $items->count(),
+        ];
+    })->values();
+
+    $malasData = $malas->groupBy('siswa_id')->map(function ($items) {
+        return [
+            'name' => $items->first()->siswa->name,
+            'total' => $items->count(),
+        ];
+    })->values();
         return view("dashboard.index", [
             "title" => "Dashboard",
-            "active" => "Dashboard"
+            "active" => "Dashboard",
+            "totalSiswa" => Siswa::all()->count(),
+            "rajin" => $rajinData,
+            "malas" => $malasData,
         ]);
     }
 
@@ -298,10 +329,91 @@ class DashboardController extends Controller
         }
     }
 
+    public function admin() {
+        return view("dashboard.admin", [
+            "title" => "Akun Admin",
+            "active" => "Admin",
+            "data" => User::search(request('search'))->orderBy("name", "asc")->paginate(10)
+        ]);
+    }
 
+    public function createAdmin() {
+        return view("dashboard.form.admin", [
+            "title" => "Tambah Admin",
+            "active" => "Admin",
+        ]);
+    }
 
+    public function storeAdmin(Request $request) {
+        $data = $request->validate([
+            "name" => "required|unique:users",
+            "password" => "required|min:8",
+            "password_confirmation" => "same:password",
+            "email" => "required|email",
+        ]);
 
+        $admin = User::create([
+            "name" => $data["name"],
+            "password" => bcrypt($data["password"]),
+            "email" => $data["email"],
+        ]);
 
+        if ($admin) {
+            return back()->with("success", "Berhasil menambah admin");
+        } else {
+            return back()->with("error", "Gagal menambah admin");
+        }
+    }
+
+    public function editAdmin($id) {
+        $AdminId = decrypt($id);
+        return view("dashboard.form.Admin", [
+            "title" => "Edit Admin",
+            "active" => "Admin",
+            "data" => User::find($AdminId)
+        ]);
+    }
+
+    public function updateAdmin($id, Request $request) {
+        $adminId = decrypt($id);
+        $data = $request->validate([
+            "name" => "required|unique:users",
+            "password" => "",
+            "password_confirmation" => "same:password",
+            "email" => "required|email",
+        ]);
+
+        $admin = User::find($adminId);
+        if (empty($data["password"])) {
+            $admin->forceFill([
+                "name" => $data["name"],
+                "email" => $data["email"],
+            ]);
+        } else {
+            $admin->forceFill([
+                "name" => $data["name"],
+                "email" => $data["email"],
+                "password" => bcrypt($data["password"]),
+            ]);
+        }
+
+        if ($admin->save()) {
+            return redirect("/dashboard/admin")->with("success", "Berhasil mengedit admin");
+        } else {
+            return redirect("/dashboard/admin")->with("error", "Gagal mengedit admin");
+        }
+    }
+
+    public function deleteAdmin($id) {
+        $adminId = decrypt($id);
+        $admin = User::find($adminId);
+
+        if ($admin->delete()) {
+            return back()->with("success", "Berhasil menghapus admin");
+        } else {
+            return back()->with("error", "Gagal menghapus admin");
+        }
+    }
 
 
 
