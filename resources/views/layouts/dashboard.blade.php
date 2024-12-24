@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="preconnect" href="https://fonts.gstatic.com">
+  <meta name="author" content="rzlam_in">
   <link rel="shortcut icon" href="{{ config('app.url') }}/favicon.ico" type="image/x-icon" />
   <title>Admin {{ config('app.name') }} - {{ @$title }}</title>
   <link rel="stylesheet" href="{{ config('app.url') }}/bootstrap/css/bootstrap.min.css">

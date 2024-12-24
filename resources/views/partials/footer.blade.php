@@ -1,7 +1,7 @@
 <footer class="bg-dark text-white">
   <div class="container-fluid py-5 text-center">
     <div class="row">
-      <p>Made with ❤️ by <a href="">@rzlam_in</a></p>
+      <p>Made with ❤️ by <a href="https://www.instagram.com/rzlam_in/" target="_blank">@rzlam_in</a></p>
     </div>
   </div>
 </footer>

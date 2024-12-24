@@ -13,6 +13,9 @@
 </head>
 
 <body class="bg-body-tertiary">
+  <a href="https://github.com/RzlAm/Laravel11-Sistem-Informasi-Piket-Kelas" target="_blank" class="floating-btn">
+    <i class="fa-brands fa-github fs-4"></i>
+  </a>
   @if (session()->has('error'))
     <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true">
       <div class="toast-header bg-danger">
@@ -57,6 +60,11 @@
           <li class="nav-item">
             <a class="nav-link {{ @$active == 'piket' ? 'active' : '' }}" href="/piket">Piket</a>
           </li>
+          @auth
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard">Dashboard</a>
+            </li>
+          @endauth
           <li class="nav-item d-flex align-items-center ms-0 ms-lg-3 mt-3 mt-lg-0">
             @auth
               <form action="/logout" method="POST">

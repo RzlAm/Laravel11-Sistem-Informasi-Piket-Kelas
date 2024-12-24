@@ -26,6 +26,28 @@ body, html {
 	z-index: 9999;
 }
 
+.floating-btn {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	z-index: 1000;
+	background-color: #333;
+	color: #fff;
+	border: none;
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.floating-btn:hover {
+	background-color: #555;
+	color: #fff;
+}
+
 /* Override Bootstrap colors */
 .bg-success {
 	background-color: var(--success) !important;
