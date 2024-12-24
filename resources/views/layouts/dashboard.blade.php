@@ -19,7 +19,7 @@
   @if (session()->has('error'))
     <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true">
       <div class="toast-header bg-danger">
-        <img src="{{ config('app.url') }}/images/icon.png" class="rounded me-2 bg-white" width="25 px" alt="logo kelas">
+        <img src="{{ config('app.url') }}/storage/{{ $logo }}" class="rounded me-2 bg-white" width="25 px" alt="logo kelas">
         <strong class="me-auto text-white">{{ config('app.name') }}</strong>
         <button type="button" class="btn-close text-white" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
@@ -31,7 +31,7 @@
   @if (session()->has('success'))
     <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true">
       <div class="toast-header bg-success">
-        <img src="{{ config('app.url') }}/images/icon.png" class="rounded me-2 bg-white" width="25 px" alt="logo kelas">
+        <img src="{{ config('app.url') }}/storage/{{ $logo }}" class="rounded me-2 bg-white" width="25 px" alt="logo kelas">
         <strong class="me-auto">{{ config('app.name') }}</strong>
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>

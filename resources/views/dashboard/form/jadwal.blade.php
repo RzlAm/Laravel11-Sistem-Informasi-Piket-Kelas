@@ -15,7 +15,7 @@
                   <label for="siswa_id" class="form-label">Nama Siswa</label>
                   <select name="siswa_id" id="siswa_id" class="form-select @error('siswa_id') is-invalid @enderror">
                     @foreach ($siswas as $siswa)
-                      <option value="{{ $siswa->id }}" {{ @$data->siswa_id == $siswa->id ? 'selected' : '' }}>{{ $siswa->name }}</option>
+                      <option value="{{ $siswa->id }}" {{ @$data->siswa_id == $siswa->id || $siswa->id == old('siswa_id') ? 'selected' : '' }}>{{ $siswa->name }}</option>
                     @endforeach
                   </select>
                   @error('siswa_id')
@@ -28,7 +28,7 @@
                   <label for="hari" class="form-label">Hari</label>
                   <select name="hari" id="hari" class="form-select @error('hari') is-invalid @enderror">
                     @foreach (['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'] as $day)
-                      <option value="{{ $day }}" {{ strtolower(@$data->hari) == strtolower($day) ? 'selected' : '' }}>
+                      <option value="{{ $day }}" {{ strtolower(@$data->hari) == strtolower($day) || strtolower($day) == strtolower(old('hari')) ? 'selected' : '' }}>
                         {{ ucfirst($day) }}
                       </option>
                     @endforeach

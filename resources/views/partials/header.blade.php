@@ -16,7 +16,7 @@
   @if (session()->has('error'))
     <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true">
       <div class="toast-header bg-danger">
-        <img src="{{ config('app.url') }}/images/icon.png" class="rounded me-2 bg-white" width="25 px" alt="logo kelas">
+        <img src="{{ config('app.url') }}/storage/{{ $logo }}" class="rounded me-2 bg-white" width="25 px" alt="logo kelas">
         <strong class="me-auto text-white">{{ config('app.name') }}</strong>
         <button type="button" class="btn-close text-white" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
@@ -28,7 +28,7 @@
   @if (session()->has('success'))
     <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true">
       <div class="toast-header bg-success">
-        <img src="{{ config('app.url') }}/images/icon.png" class="rounded me-2 bg-white" width="25 px" alt="logo kelas">
+        <img src="{{ config('app.url') }}/storage/{{ $logo }}" class="rounded me-2 bg-white" width="25 px" alt="logo kelas">
         <strong class="me-auto">{{ config('app.name') }}</strong>
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
@@ -41,7 +41,7 @@
   <nav class="navbar navbar-expand-lg bg-white">
     <div class="container">
       <a class="navbar-brand d-flex align-items-center gap-2" href="/">
-        <img src="{{ config('app.url') }}/images/icon.png" width="35px" alt="Icon website">
+        <img src="{{ config('app.url') }}/storage/{{ $logo }}" width="35px" alt="Icon website">
         {{ config('app.name') }}</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

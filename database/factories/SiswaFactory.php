@@ -16,8 +16,9 @@ class SiswaFactory extends Factory
      */
     public function definition(): array
     {
+        $faker = \Faker\Factory::create('id_ID');
         return [
-            "name" => fake()->name()
+            "name" => $faker->firstName() . ' ' . $faker->lastName()
         ];
     }
 }

@@ -23,19 +23,20 @@ Route::get('/', function () {
         ->whereBetween('tanggal', [$tanggalMulai, $tanggalAkhir])
         ->get();
 
-    $rajinData = $rajin->groupBy('siswa_id')->map(function ($items) {
-        return [
-            'name' => $items->first()->siswa->name,
-            'total' => $items->count(),
-        ];
-    })->values();
-
-    $malasData = $malas->groupBy('siswa_id')->map(function ($items) {
-        return [
-            'name' => $items->first()->siswa->name,
-            'total' => $items->count(),
-        ];
-    })->values();
+        $rajinData = $rajin->groupBy('siswa_id')->map(function ($items) {
+            return [
+                'name' => $items->first()->siswa->name,
+                'total' => $items->count(),
+            ];
+        })->sortByDesc('total')->take(10)->values();
+        
+        $malasData = $malas->groupBy('siswa_id')->map(function ($items) {
+            return [
+                'name' => $items->first()->siswa->name,
+                'total' => $items->count(),
+            ];
+        })->sortByDesc('total')->take(10)->values();
+        
 
     return view('home', [
         "title" => "Home",
@@ -44,6 +45,7 @@ Route::get('/', function () {
         "malas" => $malasData,
     ]);
 });
+
 Route::get('/jadwal', function () {
     $days = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
         $jadwal = [];
@@ -103,3 +105,7 @@ Route::post("/dashboard/admin/create", [DashboardController::class, "storeAdmin"
 Route::delete("/dashboard/admin/{id}", [DashboardController::class, "deleteAdmin"])->middleware("auth");
 Route::get("/dashboard/admin/{id}/edit", [DashboardController::class, "editAdmin"])->middleware("auth");
 Route::put("/dashboard/admin/{id}/edit", [DashboardController::class, "updateAdmin"])->middleware("auth");
+
+Route::get("/dashboard/pengaturan", [DashboardController::class, "settings"])->middleware("auth");
+Route::get("/dashboard/pengaturan/{id}/edit", [DashboardController::class, "editSettings"])->middleware("auth");
+Route::put("/dashboard/pengaturan/{id}/edit", [DashboardController::class, "updateSettings"])->middleware("auth");

@@ -5,7 +5,7 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="text-center">
-            <img src="{{ config('app.url') }}/images/icon.png" width="60px" alt="logo kelas">
+            <img src="{{ config('app.url') }}/storage/{{ $logo }}" width="60px" alt="logo kelas">
           </div>
           <h3 class="text-center mb-4 mt-2">Login</h3>
           <div class="col-md-5">

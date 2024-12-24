@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Jadwal;
 use App\Models\Piket;
+use App\Models\Setting;
 use App\Models\Siswa;
 use App\Models\User;
 use Carbon\Carbon;
@@ -12,32 +13,32 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     public function index() {
-    $tanggalMulai = Carbon::now()->startOfMonth(); 
-    $tanggalAkhir = Carbon::now()->endOfMonth();  
-
-    $rajin = Piket::with('siswa') 
-        ->where('status', 'Piket')
-        ->whereBetween('tanggal', [$tanggalMulai, $tanggalAkhir])
-        ->get();
-
-    $malas = Piket::with('siswa') 
-        ->where('status', 'Tidak Piket')
-        ->whereBetween('tanggal', [$tanggalMulai, $tanggalAkhir])
-        ->get();
-
-    $rajinData = $rajin->groupBy('siswa_id')->map(function ($items) {
-        return [
-            'name' => $items->first()->siswa->name,
-            'total' => $items->count(),
-        ];
-    })->values();
-
-    $malasData = $malas->groupBy('siswa_id')->map(function ($items) {
-        return [
-            'name' => $items->first()->siswa->name,
-            'total' => $items->count(),
-        ];
-    })->values();
+        $tanggalMulai = Carbon::now()->startOfMonth(); 
+        $tanggalAkhir = Carbon::now()->endOfMonth();  
+    
+        $rajin = Piket::with('siswa') 
+            ->where('status', 'Piket')
+            ->whereBetween('tanggal', [$tanggalMulai, $tanggalAkhir])
+            ->get();
+    
+        $malas = Piket::with('siswa') 
+            ->where('status', 'Tidak Piket')
+            ->whereBetween('tanggal', [$tanggalMulai, $tanggalAkhir])
+            ->get();
+    
+            $rajinData = $rajin->groupBy('siswa_id')->map(function ($items) {
+                return [
+                    'name' => $items->first()->siswa->name,
+                    'total' => $items->count(),
+                ];
+            })->sortByDesc('total')->take(10)->values();
+            
+            $malasData = $malas->groupBy('siswa_id')->map(function ($items) {
+                return [
+                    'name' => $items->first()->siswa->name,
+                    'total' => $items->count(),
+                ];
+            })->sortByDesc('total')->take(10)->values();
         return view("dashboard.index", [
             "title" => "Dashboard",
             "active" => "Dashboard",
@@ -415,7 +416,53 @@ class DashboardController extends Controller
         }
     }
 
+    public function settings() {
+        return view("dashboard.settings", [
+            "title" => "Pengaturan",
+            "active" => "Pengaturan",
+            "data" => Setting::all()
+        ]);
+    }
 
+    public function editSettings($id) {
+        $settingId = decrypt($id);
+        return view("dashboard.form.settings", [
+            "title" => "Edit Pengaturan",
+            "active" => "Pengaturan",
+            "data" => Setting::find($settingId)
+        ]);
+    }
+
+    public function updateSettings($id, Request $request) {
+        $settingId = decrypt($id);
+        $data = $request->validate([
+            "nama_kelas" => "required",
+            "logo" => "required|file|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
+        ]);
+
+        $setting = Setting::find($settingId);
+        if ($request->hasFile('logo') && $request->file('logo')->isValid()) {
+            // ada gambar
+            unlink("storage/".$setting->logo);
+            $path = $data["logo"]->store("settings", "public");
+            $setting->forceFIll([
+                "nama_kelas" => $data["nama_kelas"],
+                "logo" => $path
+            ])->save();
+
+        } else {
+            //tidak ada gambar
+            $setting->forceFIll([
+                "nama_kelas" => $data["nama_kelas"],
+            ]);
+        }
+
+        if ($setting->save()) {
+            return redirect("/dashboard/pengaturan")->with("success", "Berhasil mengubah pengaturan");
+        } else {
+            return redirect("/dashboard/pengaturan")->with("error", "Gagal mengubah pengaturan");
+        }
+    }
 
 
 

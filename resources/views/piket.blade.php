@@ -4,7 +4,7 @@
     <section id="siswa" class="py-5">
       <div class="container">
         <div class="row justify-content-center">
-          <h4 class="text-center fw-bold mb-0">Data Piket XII TJKT 2</h4>
+          <h4 class="text-center fw-bold mb-0">Data Piket {{ $nama_kelas }}</h4>
           <p class="text-center text-secondary">Untuk Bulan Ini</p>
           <div class="col">
             <div class="card border-0 shadow-sm">

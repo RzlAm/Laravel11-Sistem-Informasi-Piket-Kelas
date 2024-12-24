@@ -3,10 +3,10 @@
   <div class="content">
     <section id="hero" class="d-flex align-items-center justify-content-center" style="height: 90vh">
       <div class="px-4 py-5 my-5 text-center">
-        <img class="d-block mx-auto mb-4" src="{{ config('app.url') }}/images/icon.png" alt="Logo Kelas" width="72">
-        <h1 class="display-5 fw-bold text-body-emphasis">Sistem Informasi Piket XII TJKT 2</h1>
+        <img class="d-block mx-auto mb-4" src="{{ config('app.url') }}/storage/{{ $logo }}" alt="Logo Kelas" width="72">
+        <h1 class="display-5 fw-bold text-body-emphasis">Sistem Informasi Piket {{ $nama_kelas }}</h1>
         <div class="col-lg-6 mx-auto">
-          <p class="lead mb-4">Aplikasi pencatat piket kelas XII TJKT 2.<br>Yang ndak piket denda 👊</p>
+          <p class="lead mb-4">Aplikasi pencatat piket kelas {{ $nama_kelas }}.<br>Yang ndak piket denda 👊</p>
           <div class="d-grid gap-2 d-sm-flex justify-content-sm-center w-100">
             <a href="/jadwal" class="btn btn-success btn-lg px-4 gap-3">Jadwal Piket</a>
             <a href="/piket" class="btn btn-outline-danger btn-lg px-4">Data Piket</a>

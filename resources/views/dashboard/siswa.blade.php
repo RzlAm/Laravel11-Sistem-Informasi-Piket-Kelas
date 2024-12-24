@@ -46,7 +46,6 @@
               <thead>
                 <th>No</th>
                 <th>Nama</th>
-                <th>Jadwal</th>
                 <th>Aksi</th>
               </thead>
               <tbody>
@@ -58,7 +57,6 @@
                 @foreach ($data as $item)
                   <tr>
                     <td>{{ ($data->currentPage() - 1) * $data->perPage() + $loop->iteration }}</td>
-                    <td>{{ $item->name }}</td>
                     <td>{{ $item->name }}</td>
                     <td>
                       <button type="button" class="btn btn-danger btn-sm btn-delete" data-id="{{ encrypt($item->id) }}" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"><i class="align-middle" data-feather="trash-2"></i></button>
