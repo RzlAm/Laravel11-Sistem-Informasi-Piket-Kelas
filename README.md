@@ -22,6 +22,7 @@ B. Admin
 2. Laravel 11.36.1
 3. Font Awesome
 4. Adminkit
+5. Chart js
 
 Terimakasih telah berkunjung, Jangan lupa untuk memberikan bintang ⭐.
 Silahkan juga bagi yang mau clone, dan terapkan di kelas kalian, jangan lupa kasih credit 😊
