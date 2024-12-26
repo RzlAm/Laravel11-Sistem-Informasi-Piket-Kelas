@@ -8,16 +8,26 @@ Untuk Admin bisa di fungsikan sebagai Sekretaris dan Ketua. Jangan lupa star yaa
 
 # Instalasi
 1. Clone repository<br>
-   `git clone https://github.com/RzlAm/Laravel11-Sistem-Informasi-Piket-Kelas.git`
-2. Masuk ke direktrori projek<br>
-   `cd Laravel11-Sistem-Informasi-Piket-Kelas`
-3. Install Dependencies dengan Composer<br>
-    `composer install`
-4. Copy file `.env`<br>
-    `cp .env.example .env`
-5. Generate application key<br>
-    `php artisan key:generate`
-6. Setup database<br>
+   ```
+   git clone https://github.com/RzlAm/Laravel11-Sistem-Informasi-Piket-Kelas.git
+   ```
+3. Masuk ke direktrori projek<br>
+   ```
+   cd Laravel11-Sistem-Informasi-Piket-Kelas
+   ```
+5. Install Dependencies dengan Composer<br>
+    ```
+   composer install
+    ```
+7. Copy file `.env`<br>
+    ```
+   cp .env.example .env
+    ```
+9. Generate application key<br>
+    ```
+    php artisan key:generate
+   ```
+11. Setup database<br>
     - Edit file `.env` untuk konfigurasi database kamu (misal, MySQL)<br>
       ```
         DB_CONNECTION=mysql
@@ -28,10 +38,17 @@ Untuk Admin bisa di fungsikan sebagai Sekretaris dan Ketua. Jangan lupa star yaa
         DB_PASSWORD=
       ```
     -  Jalankan perintah migrasi<br>
-      `php artisan migrate`
-7. Jalankan aplikasi<br>
-    `php artisan serve`<br>
-   Buka di browser kalian `http://localhost:8000`
+          ```
+            php artisan migrate
+          ```
+12. Jalankan aplikasi<br>
+    ```
+    php artisan serve
+    ```
+    Buka di browser kalian
+    ```
+    http://localhost:8000
+    ```
 
 
 # Fitur 
