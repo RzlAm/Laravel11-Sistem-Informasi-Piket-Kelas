@@ -6,6 +6,33 @@ Source code aplikasi pencatatan piket kelas sederhana yang dibuat menggunakan La
 Aplikasi yang cocok nih buat kelas kalian, biar tahu siapa yang piket dan siapa yang ndak piket hehe.
 Untuk Admin bisa di fungsikan sebagai Sekretaris dan Ketua. Jangan lupa star yaa.
 
+# Instalasi
+1. Clone repository<br>
+   `git clone https://github.com/RzlAm/Laravel11-Sistem-Informasi-Piket-Kelas.git`
+2. Masuk ke direktrori projek<br>
+   `cd Laravel11-Sistem-Informasi-Piket-Kelas`
+3. Install Dependencies dengan Composer<br>
+    `composer install`
+4. Copy file `.env`<br>
+    `cp .env.example .env`
+5. Generate application key<br>
+    `php artisan key:generate`
+6. Setup database<br>
+    - Edit file `.env` untuk konfigurasi database kamu (misal, MySQL)<br>
+      ```
+        DB_CONNECTION=mysql
+        DB_HOST=127.0.0.1
+        DB_PORT=3306
+        DB_DATABASE=sipiket
+        DB_USERNAME=root
+        DB_PASSWORD= ```
+    -  Jalankan perintah migrasi<br>
+      `php artisan migrate`
+7. Jalankan aplikasi<br>
+    `php artisan serve`<br>
+   Buka di browser kalian `http://localhost:8000`
+
+
 # Fitur 
 A. Guest
   1. Melihat statistic singkat di home
