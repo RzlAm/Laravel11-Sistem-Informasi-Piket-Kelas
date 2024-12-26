@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('piket', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("siswa_id")->constrained("siswa", "id");
+            $table->foreignId("siswa_id")->constrained("siswa", "id")->onDelete('cascade')->onUpdate('cascade');
             $table->date("tanggal");
             $table->enum("status", ["Piket", "Tidak Piket"]);
             $table->text("keterangan")->nullable();

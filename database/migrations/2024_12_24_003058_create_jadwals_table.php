@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('jadwal', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("siswa_id")->constrained("siswa", "id")->unique();
+            $table->foreignId("siswa_id")->constrained("siswa", "id")->unique()->onDelete('cascade')->onUpdate('cascade');
             $table->enum("hari", ["Senin", "Selasa", "Rabu", "Kamis", "jumat", "Sabtu"]);
             $table->timestamps();
         });

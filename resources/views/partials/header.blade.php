@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="rzlam_in">
+  <link rel="shortcut icon" href="{{ config('app.url') }}/favicon.ico" type="image/x-icon" />
   <title>{{ config('app.name') }} - {{ @$title }}</title>
   <link href="{{ config('app.url') }}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="{{ config('app.url') }}/css/style.css" rel="stylesheet">
@@ -69,7 +70,7 @@
             @auth
               <form action="/logout" method="POST">
                 @csrf
-                <button type="submit" class="btn btn-danger btn-sm ms-0 text-start text-lg-center ms-lg-3 px-3 w-100 w-lg-auto"><i class="fa-regular fa-user"></i>&nbsp;&nbsp;Rizal | Logout</button>
+                <button type="submit" class="btn btn-danger btn-sm ms-0 text-start text-lg-center ms-lg-3 px-3 w-100 w-lg-auto"><i class="fa-regular fa-user"></i>&nbsp;&nbsp;{{ Auth::user()->name }} | Logout</button>
               </form>
             @else
               <a href="/login" class="btn btn-success btn-sm w-100 w-lg-auto px-0 px-lg-3">Login</a>

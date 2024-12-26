@@ -51,7 +51,7 @@ class DashboardController extends Controller
     public function piket() {
         return view("dashboard.piket", [
             "title" => "Data Piket",
-            "active" => "Piket",
+            "active" => "Data Piket",
             "data" => Piket::search(request('search'))->latest()->paginate(10)
         ]);
     }
@@ -64,7 +64,7 @@ class DashboardController extends Controller
         }
         return view("dashboard.form.piket", [
             "title" => "Tambah piket",
-            "active" => "piket",
+            "active" => "Data Piket",
             "siswas" => $siswas
         ]);
     }
@@ -128,7 +128,7 @@ class DashboardController extends Controller
         }
         return view("dashboard.form.piket", [
             "title" => "Edit piket",
-            "active" => "piket",
+            "active" => "Data Piket",
             "siswas" => $siswas,
             "data" => Piket::find($piketId)
         ]);
@@ -191,7 +191,7 @@ class DashboardController extends Controller
     public function siswa() {
         return view("dashboard.siswa", [
             "title" => "Siswa",
-            "active" => "Siswa",
+            "active" => "Data Siswa",
             "data" => Siswa::search(request('search'))->orderBy("name", "asc")->paginate(10)
         ]);
     }
@@ -199,7 +199,7 @@ class DashboardController extends Controller
     public function createSiswa() {
         return view("dashboard.form.siswa", [
             "title" => "Tambah Siswa",
-            "active" => "Siswa",
+            "active" => "Data Siswa",
         ]);
     }
 
@@ -221,7 +221,7 @@ class DashboardController extends Controller
         $siswaId = decrypt($id);
         return view("dashboard.form.siswa", [
             "title" => "Edit Siswa",
-            "active" => "Siswa",
+            "active" => "Data Siswa",
             "data" => Siswa::find($siswaId)
         ]);
     }
@@ -263,7 +263,7 @@ class DashboardController extends Controller
     
         return view("dashboard.jadwal", [
             "title" => "Jadwal Piket",
-            "active" => "jadwal",
+            "active" => "Jadwal",
             "jadwal" => $jadwal, // Gabung semua jadwal dalam satu array
         ]);
     }
@@ -273,7 +273,7 @@ class DashboardController extends Controller
     public function createjadwal() {
         return view("dashboard.form.jadwal", [
             "title" => "Tambah Jadwal Piket",
-            "active" => "jadwal",
+            "active" => "Jadwal",
             "siswas" => Siswa::orderBy("name", "asc")->get()
         ]);
     }
@@ -297,19 +297,20 @@ class DashboardController extends Controller
         $jadwalId = decrypt($id);
         return view("dashboard.form.jadwal", [
             "title" => "Edit Jadwal Piket",
-            "active" => "jadwal",
+            "active" => "Jadwal",
             "siswas" => Siswa::orderBy("name", "asc")->get(),
             "data" => Jadwal::find($jadwalId)
         ]);
     }
 
-    public function updatejadwal($id, Request $request) {
+    public function updateJadwal($id, Request $request) {
         $jadwalId = decrypt($id);
         $data = $request->validate([
-            "name" => "required"
+            "siswa_id" => "required|numeric",
+            "hari" => "required"
         ]);
 
-        $jadwal = jadwal::find($jadwalId);
+        $jadwal = Jadwal::find($jadwalId);
         $jadwal->forceFill($data);
 
         if ($jadwal->save()) {
@@ -368,7 +369,7 @@ class DashboardController extends Controller
 
     public function editAdmin($id) {
         $AdminId = decrypt($id);
-        return view("dashboard.form.Admin", [
+        return view("dashboard.form.admin", [
             "title" => "Edit Admin",
             "active" => "Admin",
             "data" => User::find($AdminId)
@@ -437,13 +438,18 @@ class DashboardController extends Controller
         $settingId = decrypt($id);
         $data = $request->validate([
             "nama_kelas" => "required",
-            "logo" => "required|file|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
+            "logo" => "file|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
         ]);
 
         $setting = Setting::find($settingId);
         if ($request->hasFile('logo') && $request->file('logo')->isValid()) {
             // ada gambar
-            unlink("storage/".$setting->logo);
+            $filePath = storage_path($setting->logo);
+
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+
             $path = $data["logo"]->store("settings", "public");
             $setting->forceFIll([
                 "nama_kelas" => $data["nama_kelas"],

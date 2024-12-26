@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Setting::create([
-            "logo" => "settings/FmKbFDBTrLa2nrkrnXyQwM7ii3y4Rnaf1v48u0C7.png",
+            "logo" => "settings/UzNfXvp3x8KlSoSEK4enRD36UjDeaGxTIYKfaf1r.png",
             "nama_kelas" => "XII TJKT 2"
         ]);
     }

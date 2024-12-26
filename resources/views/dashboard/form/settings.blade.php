@@ -14,7 +14,7 @@
                   <label for="logo" class="w-100 cursor-pointer product-form-image">
                     <img id="imagePreview" src="{{ config('app.url') }}/storage/{{ $data->logo }}" width="300px" height="300px" class="object-fit-cover rounded bg-light" alt="logo kelas">
                   </label>
-                  <input type="file" required class="d-none @error('logo') is-invalid @enderror" name="logo" accept="image/*" id="logo" onchange="updateImage(event)">
+                  <input type="file" class="form-control @error('logo') is-invalid @enderror" name="logo" accept="image/*" id="logo" onchange="updateImage(event)">
                   @error('logo')
                     <div class="invalid-feedback"></div>
                   @enderror
