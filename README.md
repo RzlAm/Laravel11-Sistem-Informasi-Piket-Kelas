@@ -25,7 +25,8 @@ Untuk Admin bisa di fungsikan sebagai Sekretaris dan Ketua. Jangan lupa star yaa
         DB_PORT=3306
         DB_DATABASE=sipiket
         DB_USERNAME=root
-        DB_PASSWORD= ```
+        DB_PASSWORD=
+      ```
     -  Jalankan perintah migrasi<br>
       `php artisan migrate`
 7. Jalankan aplikasi<br>
@@ -53,5 +54,6 @@ B. Admin
 4. Adminkit
 5. Chart js
 
+Mau kontribusi?, gasin aja.<br>
 Terimakasih telah berkunjung, Jangan lupa untuk memberikan bintang ⭐.
 Silahkan juga bagi yang mau clone, dan terapkan di kelas kalian, jangan lupa kasih credit 😊
